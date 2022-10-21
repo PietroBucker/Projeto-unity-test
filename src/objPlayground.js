@@ -44,7 +44,6 @@ const calculator = (number1, number2) => {
   return obj;
 };
 
-
 const arrayGenerator = (type, object) => {
   switch (type) {
     case 'keys':
