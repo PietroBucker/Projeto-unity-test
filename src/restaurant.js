@@ -94,19 +94,38 @@
 // DICA: para isso, você precisará percorrer tanto o objeto da chave `food` quanto o objeto da chave `drink`.
 
 const createMenu = (objetoPassadoPorParametro) => {
-  let anotaPedido = [];
+  const consumption = [];
   const menu = {
     fetchMenu: () => objetoPassadoPorParametro,
-    consumption: [],
-    order: (pedido) => anotaPedido.push(10),
-    
+    consumption,
+    order: (pedido) => consumption.push(pedido),
+    pay: () => {
+      let soma = 0;
+      const comida = menu.fetchMenu().food;
+      const bebida = menu.fetchMenu().drink;
+      for (let i of menu.consumption) {
+        if (Object.keys(comida).includes(i)) {
+          soma += comida[i];
+        }
+        if (Object.keys(bebida).includes(i)) {
+          soma += bebida[i];
+        }
+      }
+      soma *= 1.1;
+      return Math.round(soma);
+    },
   };
-  console.log(anotaPedido);
-  console.log(menu.consumption);
   return menu;
 };
 
 // console.log(createMenu({ food: {}, drink: {} }).fetchMenu());
 // console.log(Object.keys(createMenu({ food: {}, drink: {} }).fetchMenu()));
-console.log(createMenu().order(10));
+// const objetoRetornado = createMenu({ food: { coxinha: 10.00, sashimi: 10.00 }, drink: { agua: 5.00 } });
+// objetoRetornado.order('coxinha');
+// objetoRetornado.order('agua');
+// objetoRetornado.order('coxinha');
+// objetoRetornado.order('sashimi');
+// console.log(objetoRetornado.consumption);
+// console.log(objetoRetornado.pay());
+
 module.exports = createMenu;
